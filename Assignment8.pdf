@@ -1,0 +1,21 @@
+So originally, I wanted to create a hybrid structure as follows:
+One class called HybridStructure, which contains an ArrayList of another class, StateSubstructure, plus some added functionality.
+There are 50 StateSubStructures automatically generated when the HybridStructure constructor is called, one for each state.
+Every StateSubStructure has an Arraylist of TreeSet of reports. All accidents in a treeset occur on the same date. The outside container arraylist
+sorts the interior TreeSets by date on which their accidents occured. 
+
+I tried using treeset initially, which does not allow duplicates. Because all of the reports in a tree have the same date, and the reports are compared
+based on date, every single report added was a duplicate, so I kept getting a problem where every tree only had one report. To fix this while still
+retaining the quick nature of Red-Black trees, I had to write my own Red-Black tree that treated duplicates added to the tree as being greater than
+the parent.
+
+The implementation as it stands is actually pretty useless, because the Red-Black trees themselves are not sorted at all. They all occur on the same date. But, if you change the way they are sorted into something more useful, say, sorted by visibility or some other comparison, this structure of RBTrees where all nodes occur on the same 
+date within ArrayLists sorted by date, within another Arraylist where each state is an index in the ArrayList, then I could see this being useful.
+
+Its is very fast so simply search for the proper StateSubStructure, as only 50 must be chosen from. It also also fairly fast to get the number of accidents on or after a certain date: The program goes over the arraylist of trees of a given state, and if a tree starts on or after the given date, its size is added to the number of reports. This
+recursive method of getting size, ran on a RBTree, is not the quickest, it would be quicker if the reports were simply stored in an ArrayList. However, the beneft of the 
+RB tree means it is very quick to select a report of a given characteristic as it is sorted in an RBTree. Inserting reports into the RBTree is quite slow, because the more 
+reports are added, the slower it is to add another.
+
+
+So with a slight modification where reports can be compared by date and also compared by something else, this should be a good data structure.
